@@ -1,0 +1,4 @@
+door drzwi
+book ksiazka
+keyboard klawiatura
+ship statek
