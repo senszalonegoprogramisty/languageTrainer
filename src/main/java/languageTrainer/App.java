@@ -12,26 +12,16 @@ public class App {
         String line;
         try (FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr)) {
             while ((line = br.readLine()) != null) {
-
                 String[] words = line.split(" ");
                 String question = words[0];
                 String solution = words[1];
-
                 System.out.println(question);
-
-
                 String answer = scanner.next().toLowerCase();
-
                 while (!answer.equals(solution)) {
-                    scanner.close();
-
                     System.out.println("bad answer, try again");
                     answer = scanner.next();
                 }
-                scanner.close();
-
                 System.out.println("good answer");
-
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -43,9 +33,19 @@ public class App {
     public static void saveSingleLineToFile() {
         String newLine;
         try (FileWriter fw = new FileWriter(file, true); BufferedWriter bw = new BufferedWriter(fw)) {
-            bw.write("\n");
-            bw.write(scanner.nextLine());
-
+            boolean flag = true;
+            while (flag) {
+                bw.write("\n");
+                String words = scanner.nextLine();
+                String[] dupa = words.split(" ");
+                if (dupa.length > 1) {
+                    System.out.println("slowko zapisane");
+                    bw.write(words);
+                    flag = false;
+                } else {
+                    System.out.println("wpisz conajmniej dwa slowa");
+                }
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -55,13 +55,10 @@ public class App {
 
     public static void saveToFile() {
         boolean flag = true;
-
-
         while (flag) {
             System.out.println("Choose form options:\n" +
                     "0 -> quit\n" +
                     "1 -> add new ");
-
             String menu = scanner.nextLine();
             switch (menu) {
                 case "0":
@@ -76,17 +73,33 @@ public class App {
                     System.out.println("bad input");
                     break;
             }
-
         }
     }
 
-    /*boolean flag = true;
-            c
-    int menu = scanner.nextInt();*/
+    public static void mainMenu() {
+        boolean flag = true;
+        while (flag) {
+            System.out.println("0: exit");
+            System.out.println("1: add words");
+            System.out.println("2: start learning");
+            String menu = scanner.nextLine();
+            switch (menu) {
+                case "0":
+                    System.out.println("exiting program");
+                    flag = false;
+                    break;
+                case "1":
+                    saveToFile();
+                    break;
+                case "2":
+                    readFromFile();
+                    break;
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
-        //readFromFile();
-        saveToFile();
-
+        mainMenu();
     }
 }
