@@ -1,11 +1,20 @@
 package languageTrainer;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 import java.io.*;
 import java.util.Scanner;
 
-public class App {
+public class App extends Application {
     private static Scanner scanner = new Scanner(System.in);
     private static String file = "dictionary.txt";
+
 
     public static void readFromFile() {
 
@@ -100,6 +109,83 @@ public class App {
 
 
     public static void main(String[] args) {
-        mainMenu();
+        launch(args);
+        // mainMenu();
     }
+
+    Stage window;
+
+    Button exitButton;
+    Button addButton;
+    Button learnButton;
+    Button returnButton1;
+    Button returnButton2;
+
+
+    Scene menuScene;
+    Scene addWordScene;
+    Scene learnScene;
+
+
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        window = primaryStage;
+        primaryStage.setTitle("Language trainer");
+
+        addButton = new Button();
+        addButton.setText("Add word");
+        addButton.setOnAction(e -> {
+            window.setScene(addWordScene);
+        });
+
+        learnButton = new Button();
+        learnButton.setText("Learn");
+        learnButton.setOnAction(e -> {
+            window.setScene(learnScene);
+        });
+
+        exitButton = new Button();
+        exitButton.setText("Exit");
+        exitButton.setOnAction(e -> {
+            System.exit(0);
+        });
+
+        returnButton1 = new Button();
+        returnButton1.setText("Return");
+        returnButton1.setOnAction(e -> {
+            window.setScene(menuScene);
+        });
+
+        returnButton2 = new Button();
+        returnButton2.setText("Return");
+        returnButton2.setOnAction(e -> {
+            window.setScene(menuScene);
+        });
+
+        //layout menu
+        VBox layout1 = new VBox(20);
+        layout1.getChildren().addAll(addButton, learnButton, exitButton);
+        menuScene = new Scene(layout1, 400, 400);
+
+        //layout dodawania
+        Label label = new Label("dodawanie");
+        StackPane layout2 = new StackPane();
+        layout2.getChildren().addAll(label, returnButton1);
+        addWordScene = new Scene(layout2, 400, 400);
+
+
+        //layout uczenia
+        Label labelNauka = new Label("Nauka");
+        StackPane layout3 = new StackPane();
+        layout3.getChildren().addAll(labelNauka, returnButton2);
+        learnScene = new Scene(layout3, 400, 400);
+
+
+
+        window.setScene(menuScene);
+        primaryStage.show();
+    }
+
+
 }
