@@ -142,6 +142,7 @@ public class App extends Application {
         learnButton = new Button();
         learnButton.setText("Learn");
         learnButton.setOnAction(e -> {
+            AlertBox.endOfWords("tytul", "wiadomosc");
             window.setScene(learnScene);
         });
 
